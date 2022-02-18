@@ -16,9 +16,18 @@
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
             <tr>
-                <th>Employee Name</th>
-                <th>Email</th>
-                <th>Address</th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                        Employee Name</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                    Email</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=address&sortDir=' + ${reverseSortDir}}">
+                        Address</a>
+                </th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -41,15 +50,19 @@
             </div>
             <div class = "col-sm-1">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField='+ ${sortField} +'&sortDir=' +${sortDir}} ">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
 					</span>
             </div>
             <div class = "col-sm-1">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ ${i}+ '?sortField='+ ${sortField} +'&sortDir=' +${sortDir}} ">Next</a>
                 <span th:unless="${currentPage < totalPages}">Next</span>
             </div>
 
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ ${i}+ '?sortField='+ ${sortField} +'&sortDir=' +${sortDir}} ">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
         </div>
     </div>
 </div>
